@@ -22,7 +22,17 @@ class Tally(db.Model):
     blue_votes = db.FloatProperty(required=True)
     red_votes = db.FloatProperty(required=True)
     ratio = db.FloatProperty(required=True)
-    difference = db.FloatProperty(required=True)
+    difference = db.FloatProperty()
+
+class DataFixer(webapp.RequestHandler):
+    def get(self):
+        n = 0
+        for tally in Tally.all().filter("difference =", None)
+            tally.difference = tally.blue_votes-tally.red_votes
+            tally.put()
+            n += 1
+
+        self.response.out.write( str(n) )
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -81,6 +91,7 @@ class Poll(webapp.RequestHandler):
 
 application = webapp.WSGIApplication(
                                      [('/poll',Poll),
+                                      ('/fix',DataFixer),
                                       ('/', MainPage)],
                                      debug=True)
 
