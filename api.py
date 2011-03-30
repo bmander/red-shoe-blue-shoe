@@ -140,19 +140,22 @@ def votes(state,county):
         if recstate.lower().strip()==state.lower().strip() and reccounty.lower().strip()==county.lower().strip():
             return int(obama),int(mccain),int(other)
 
-    
-if __name__=='__main__':
+def votes_for_result(result):
+    state,county = zip_to_county( result['zip'] )
+    if state and county:
+        return votes(state,county)
+
+def results():
     zz = Zappos(APIKEY)
-    stats = zz.statistics("UT")
+    stats = zz.statistics("WA")
    
     for result in stats['results']:
-        print json.dumps( result, indent=2 )
+        yield result
 
-        zip = result['zip']
-        
-        print zip
-        state,county = zip_to_county( zip )
-        print state,county
-        if state and county:
-            print votes(state,county)
-        print
+def main():
+    for result in results():
+        yield votes_for_result(result)
+    
+if __name__=='__main__':
+    for phrase in main():
+        print phrase
