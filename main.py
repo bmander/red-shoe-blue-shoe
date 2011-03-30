@@ -1,4 +1,4 @@
-from urllib import urlopen, urlencode
+from urllib import urlopen, urlencode, quote
 import json
 from apikey import APIKEY
 import csv
@@ -52,6 +52,10 @@ class GoogleGeocodeResult():
     def state(self):
         return self._address_component("administrative_area_level_1")
 
+    @property
+    def location(self):
+        return self.jsonblob['geometry']['location']
+
 class GoogleGeocodeResponse():
     def __init__(self, jsonblob):
         self.jsonblob = jsonblob
@@ -67,19 +71,61 @@ class GoogleGeocodeResponse():
             ret.append( GoogleGeocodeResult(result) )
         return ret
 
+class DataScienceToolkit():
+    def __init__(self):
+        pass
+
+    def politics(self, lat, lon):
+        point = [{"latitude":str(lat),"longitude":str(lon)}]
+        url = "http://www.datasciencetoolkit.org/coordinates2politics/"+quote(json.dumps(point))
+       
+        for result in json.loads( urlopen(url).read() ):
+            yield DSTPoliticsResult(result)
+
+class DSTPoliticsResult():
+    def __init__(self, jsonblob):
+        self.jsonblob = jsonblob
+
+    @property
+    def county(self):
+        for region in self.jsonblob['politics']:
+            if region['friendly_type']=='county':
+                return region['name']
+
+    @property
+    def state(self):
+        for region in self.jsonblob['politics']:
+            if region['friendly_type']=='state':
+                return region['name']
+
 def zip_to_county(zip):
     gg = GoogleGeocode()
     resp = gg.geocode(zip)
 
+    # the google geocoder couldn't handle it. all hope is lost
     if resp.status != "OK":
         return None
 
+    # ditto
     if len(resp.results)==0:
         return None
 
     result = resp.results[0]
 
-    return (result.state, result.county)
+    state = result.state
+    county = result.county
+
+    # sometimes google returns a location but not a state/county pair. in this case,
+    # fall back on the DataScienceToolkit API
+    if state is None or county is None:
+        dst = DataScienceToolkit()
+        location = result.location 
+        polresult = list(dst.politics(location['lat'],location['lng']))[0]
+
+        state = polresult.state
+        county = polresult.county
+
+    return (state, county)
 
 def votes(state,county):
     fp = open("election.csv")
@@ -94,7 +140,7 @@ def votes(state,county):
     
 if __name__=='__main__':
     zz = Zappos(APIKEY)
-    stats = zz.statistics("CA")
+    stats = zz.statistics("IL")
     print json.dumps( stats, indent=2 )
    
     for result in stats['results']:
