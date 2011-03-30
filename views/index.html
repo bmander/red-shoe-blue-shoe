@@ -12,12 +12,13 @@
 <style type="text/css">
 
     body, html{
-        margin:0;
-        padding:0;
+        margin:0px auto;
+        padding:5px;
         background:false;
+		text-align:center;
     }
 	.header{
-		padding-top:40px;
+		padding-top:10px;
 		padding-bottom:10px;
 		width:auto;
 		text-align:center;
@@ -29,15 +30,35 @@
 		text-align:center;
 	}
 	.stuffs{
-		width:900px auto;
+		width:900px;
 		text-align:center;
+		margin-left: auto ;
+	  margin-right: auto ;
+	}
+	h2{
+		font-size:28px;
+		color:#999;
+	}
+	
+	#map {
+		width:700px;	
+		height:300px;
+		background-color:#999;
+		padding-top:250px;
+		color:#111;
+		font-family:verdana;
+		margin-left: auto ;
+	  margin-right: auto ;
+	  
 	}
 </style>
 <body>
 	<div class="main">
-		<img src="masthead.jpg" />
+		
 		<div class="stuffs">
+			<img src="masthead.png">
 			<h2>Using the Zappos API to show you the most popular shoes by political affiliation since 2011.</h2> 
+			<div id="map">map goes here.</div>
 		</div>
 	</div>
 </body>
