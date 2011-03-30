@@ -33,33 +33,176 @@
 		width:900px;
 		text-align:center;
 		margin-left: auto ;
-	  margin-right: auto ;
+	  	margin-right: auto ;
+	padding:50px;
 	}
+	
+	.stuffs2{
+		width:900px;
+		text-align:center;
+		margin-left: auto ;
+	  	margin-right: auto ;
+		clear:both;
+		padding:50px;
+	}
+	
 	h2{
 		font-size:28px;
 		color:#999;
 	}
+	a { 
+		color:#71ab01;
+	}
 	
-	#map {
-		width:700px;	
-		height:300px;
-		background-color:#999;
-		padding-top:250px;
+	a:hover{
+		background-color:#71ab01;
+		color:#fff;
+	}
+	
+	.lists {
+		width:700px;
 		color:#111;
 		font-family:verdana;
+		padding:10px;
 		margin-left: auto ;
-	  margin-right: auto ;
-	  
+	  	margin-right: auto ;
+		padding:50px;
 	}
+	
+	.footer {
+		margin-left: auto ;
+	  	margin-right: auto ;
+		text-align:center;
+		clear:both;
+		padding:50px;
+	}
+	
+	.shoeTopFive {
+		width:45%;
+		font-size:20px;
+		background-color:#555;
+		display:block;
+		float:left;
+		margin:15px;
+	}
+	
+	#redShoes {
+		background-color:#ff1900;
+	}
+	
+	#redShoes ul { 
+		background-color:#ab1100;
+	}
+	
+	#redShoes .label { 
+		color:#ffcece;
+		font-size:30px;
+	}
+	
+	#blueShoes {
+		background-color:#0008ab;
+	}
+	
+	#blueShoes ul { 
+		background-color:#00067e;
+	}
+	
+	#blueShoes .label { 
+		color:#cedaff;
+		font-size:30px;
+	}
+	
+	.shoeTopFive ul {
+		margin:5px;
+		padding:15px;
+		list-style: none;	
+	}
+	
+	.shoeTopFive li {
+		margin:5px;
+		padding:5px;
+		list-style: none;
+	}
+	
+	.shoeTopFive li .shoe {
+		margin:5px;
+		padding:5px;
+		
+	}
+	
+	.shoeTopFive .label {
+		font-family:monospace;
+		color:#FFF;
+	}
+	
+	a.button{
+	background:url(button.png);
+	display:block;
+	color:#555555;
+	font-weight:bold;
+	height:42px;
+	line-height:29px;
+	margin-bottom:14px;
+	text-decoration:none;
+	width:197px;
+	
+	margin-left: auto ;
+  	margin-right: auto ;
+	
+	}
+	
+	a:hover.button{
+	background:url(buttonUp.png);
+	color:#0066CC;
+	}
+	
+	/* -------------------- */
+	/* CLASSES */
+	/* -------------------- */
+	.buy{
+	background:url(img/add.gif) no-repeat 10px 8px;
+	text-indent:30px;
+	display:block;
+	}
+	
+	
 </style>
 <body>
 	<div class="main">
 		
 		<div class="stuffs">
 			<img src="masthead.png">
-			<h2>Using the Zappos API to show you the most popular shoes by political affiliation since 2011.</h2> 
-			<div id="map">map goes here.</div>
+			<h2>Using the Zappos and Gooogle API to show you the most popular shoes by political affiliation since 2011.</h2> 
+			
+			<div class="lists">
+				
+				<div class="shoeTopFive" id="redShoes">
+					<ul>
+						<li class="label">Top Red Shoes</li>
+						<li class="shoe"><div class="number">1</div><img scr="shoe.jpg">Really Big Shoe<p>
+							<a href="buyThis" class="button"><span class="buy"></span></a></p></li>
+					</ul>
+				</div>
+				
+				<div class="shoeTopFive" id="blueShoes">
+					<ul>
+						<li class="label">Top Blue Shoes</li>
+						<li class="shoe"><div class="number">1</div><img scr="shoe.jpg">Really Big Shoe<p><a href="buyThis" class="button"></a></p></li>
+					</ul>
+				</div>
+		     </div>
 		</div>
+		
+		<div class="stuffs2">
+			<h2>How does this work?</h2>
+			<p>This works by mashing up the Zappos.com API with census data on the 2008 US Presidential Election by county.</p> 
+		</div>
+	<div class="footer">
+		<p>Fork <a href="https://github.com/bmander/red-shoe-blue-shoe">OSTSRSBS on git</a>.</p>
+		<p>Created by <a href="https://github.com/bmander">bmander</a> and <a href="http://www.neonsunburst.com">neonsunburst</a> and <a href="https://github.com/maxogden">maxogden</a>.
 	</div>
+	
+	</div>
+	
 </body>
 </html>
