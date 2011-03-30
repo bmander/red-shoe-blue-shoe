@@ -179,18 +179,27 @@
 			<div class="lists">
 				
 				<div class="shoeTopFive" id="redShoes">
+                    {% for red_shoe in red_shoes %}
 					<ul>
-						<li class="label">Top Red Shoes</li>
-						<li class="shoe"><div class="number">1</div><img scr="shoe.jpg">Really Big Shoe<p>
+						<li class="label">{{red_shoe.productName}}</li>
+						<li class="shoe"><div class="number">{{forloop.counter}}</div><img src="{{red_shoe.defaultImageUrl}}">{{red_shoe.brandName}}<p>
 							<a href="buyThis" class="button"><span class="buy"></span></a></p></li>
+                        {{red_shoe.blue_votes}},{{red_shoe.red_votes}} {{red_shoe.ratio}}
+                        <a href="{{red_shoe.defaultProductUrl}}">BUY</a>
 					</ul>
+                    {% endfor %}
 				</div>
 				
 				<div class="shoeTopFive" id="blueShoes">
+                    {% for blue_shoe in blue_shoes %}
 					<ul>
-						<li class="label">Top Blue Shoes</li>
-						<li class="shoe"><div class="number">1</div><img scr="shoe.jpg">Really Big Shoe<p><a href="buyThis" class="button"></a></p></li>
+						<li class="label">{{blue_shoe.productName}}</li>
+						<li class="shoe"><div class="number">{{forloop.counter}}</div><img src="{{blue_shoe.defaultImageUrl}}">{{blue_shoe.brandName}}<p>
+							<a href="buyThis" class="button"><span class="buy"></span></a></p></li>
+                        {{blue_shoe.blue_votes}},{{blue_shoe.red_votes}} {{blue_shoe.ratio}}
+                        <a href="{{blue_shoe.defaultProductUrl}}">BUY</a>
 					</ul>
+                    {% endfor %}
 				</div>
 		     </div>
 		</div>

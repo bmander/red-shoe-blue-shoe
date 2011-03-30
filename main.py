@@ -15,14 +15,21 @@ class Vote(db.Model):
 
 class Tally(db.Model):
     productId = db.StringProperty(required=True)
+    productName = db.StringProperty(required=True)
+    brandName = db.StringProperty(required=True)
+    defaultProductUrl = db.LinkProperty(required=True)
+    defaultImageUrl = db.LinkProperty(required=True)
     blue_votes = db.FloatProperty(required=True)
     red_votes = db.FloatProperty(required=True)
     ratio = db.FloatProperty(required=True)
 
 class MainPage(webapp.RequestHandler):
     def get(self):
+        red_shoes = Tally.all().order('ratio').filter("ratio <",1.0).fetch(5)
+        blue_shoes = Tally.all().order('-ratio').filter("ratio >=",1.0).fetch(5)
+
         path = os.path.join(os.path.dirname(__file__), 'views/index.html')
-        self.response.out.write(template.render(path, {}))
+        self.response.out.write(template.render(path, {'red_shoes':red_shoes,'blue_shoes':blue_shoes}))
 
 class Poll(webapp.RequestHandler):
     def get(self):
@@ -57,6 +64,10 @@ class Poll(webapp.RequestHandler):
                 tally = Tally.all().filter('productId =', result['productId']).get()
                 if tally is None:
                     tally = Tally(productId=result['productId'],
+                                  productName=result['productName'],
+                                  brandName=result['brandName'],
+                                  defaultProductUrl=result['defaultProductUrl'],
+                                  defaultImageUrl=result['defaultImageUrl'],
                                   blue_votes=0.0,
                                   red_votes=0.0,
                                   ratio=0.5)
