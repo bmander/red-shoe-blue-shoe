@@ -145,6 +145,7 @@ def votes(state,county):
             return int(obama),int(mccain),int(other)
 
 def votes_for_result(result):
+    """(left_votes,right_votes,other_votes)"""
     zip = result.get('zip')
     if zip is None:
         return None

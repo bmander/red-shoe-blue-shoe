@@ -25,8 +25,8 @@ class Tally(db.Model):
 
 class MainPage(webapp.RequestHandler):
     def get(self):
-        red_shoes = Tally.all().order('ratio').filter("ratio <",1.0).fetch(5)
-        blue_shoes = Tally.all().order('-ratio').filter("ratio >=",1.0).fetch(5)
+        red_shoes = Tally.all().order('red_votes').fetch(5)
+        blue_shoes = Tally.all().order('blue_votes').fetch(5)
 
         path = os.path.join(os.path.dirname(__file__), 'views/index.html')
         self.response.out.write(template.render(path, {'red_shoes':red_shoes,'blue_shoes':blue_shoes}))
