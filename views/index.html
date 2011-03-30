@@ -184,7 +184,7 @@
 						<li class="label">{{red_shoe.productName}}</li>
 						<li class="shoe"><div class="number">{{forloop.counter}}</div><img src="{{red_shoe.defaultImageUrl}}">{{red_shoe.brandName}}<p>
 							<a href="{{red_shoe.defaultProductUrl}}" class="button"><span class="buy"></span></a></p></li>
-                        {{red_shoe.blue_votes}},{{red_shoe.red_votes}} {{red_shoe.ratio}}
+                        {{red_shoe.blue_votes}},{{red_shoe.red_votes}} {{red_shoe.difference}}
 					</ul>
                     {% endfor %}
 				</div>
@@ -195,7 +195,7 @@
 						<li class="label">{{blue_shoe.productName}}</li>
 						<li class="shoe"><div class="number">{{forloop.counter}}</div><img src="{{blue_shoe.defaultImageUrl}}">{{blue_shoe.brandName}}<p>
 							<a href="blue_shoe.defaultProductUrl" class="button"><span class="buy"></span></a></p></li>
-                        {{blue_shoe.blue_votes}},{{blue_shoe.red_votes}} {{blue_shoe.ratio}}
+                        {{blue_shoe.blue_votes}},{{blue_shoe.red_votes}} {{blue_shoe.difference}}
 					</ul>
                     {% endfor %}
 				</div>

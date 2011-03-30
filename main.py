@@ -22,11 +22,12 @@ class Tally(db.Model):
     blue_votes = db.FloatProperty(required=True)
     red_votes = db.FloatProperty(required=True)
     ratio = db.FloatProperty(required=True)
+    difference = db.FloatProperty(required=True)
 
 class MainPage(webapp.RequestHandler):
     def get(self):
-        red_shoes = Tally.all().order('red_votes').fetch(5)
-        blue_shoes = Tally.all().order('blue_votes').fetch(5)
+        red_shoes = Tally.all().order('difference').fetch(5)
+        blue_shoes = Tally.all().order('-difference').fetch(5)
 
         path = os.path.join(os.path.dirname(__file__), 'views/index.html')
         self.response.out.write(template.render(path, {'red_shoes':red_shoes,'blue_shoes':blue_shoes}))
@@ -70,10 +71,12 @@ class Poll(webapp.RequestHandler):
                                   defaultImageUrl=result['defaultImageUrl'],
                                   blue_votes=0.0,
                                   red_votes=0.0,
-                                  ratio=0.5)
+                                  ratio=0.5,
+                                  difference=0.0)
                 tally.blue_votes += blue_vote
                 tally.red_votes += red_vote
                 tally.ratio = tally.blue_votes/float(tally.red_votes)
+                tally.difference = tally.blue_votes-tally.red_votes
                 tally.put()
 
 application = webapp.WSGIApplication(
