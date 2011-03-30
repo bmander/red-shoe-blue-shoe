@@ -27,7 +27,7 @@ class Tally(db.Model):
 class DataFixer(webapp.RequestHandler):
     def get(self):
         n = 0
-        for tally in Tally.all().filter("difference =", None)
+        for tally in Tally.all().filter("difference =", None):
             tally.difference = tally.blue_votes-tally.red_votes
             tally.put()
             n += 1
