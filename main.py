@@ -11,7 +11,10 @@ class Zappos:
 
     def statistics( self, locationval, locationtype="state", type="latestStyles" ):
         location = {locationtype:locationval}
-        query = {'type':'latestStyles','location':json.dumps(location),'key':self.apikey}
+        query = {'type':'latestStyles',
+                 'location':json.dumps(location),
+                 'filters':json.dumps({"categorization":{"categoryType":"Shoes"}}),
+                 'key':self.apikey}
 
         url = "http://%s/Statistics?%s"%(self.domain, urlencode(query))
 
@@ -140,10 +143,11 @@ def votes(state,county):
     
 if __name__=='__main__':
     zz = Zappos(APIKEY)
-    stats = zz.statistics("IL")
-    print json.dumps( stats, indent=2 )
+    stats = zz.statistics("UT")
    
     for result in stats['results']:
+        print json.dumps( result, indent=2 )
+
         zip = result['zip']
         
         print zip
